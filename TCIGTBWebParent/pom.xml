@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--suppress MavenModelInspection -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
     <build>
         <plugins>
@@ -40,17 +40,17 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end)-->
+			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end) -->
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end)-->
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end)-->
+			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end) -->
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
@@ -61,12 +61,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end)-->
+			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end) -->
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end)-->
+			<groupId>org.springframework.boot</groupId> <!-- dependency shared by the two subprojects (front-end & back-end) -->
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
@@ -77,13 +77,13 @@
 			<version>4.3.1</version>
 		</dependency>
 
-		<dependency> <!--jquery-->
+		<dependency> <!-- jquery -->
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>3.4.1</version>
 		</dependency>
 
-		<dependency> <!--for the discovery and reference of the bootstrap and jquery files by the application-->
+		<dependency> <!-- for the discovery and reference of the bootstrap and jquery files by the application -->
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator-core</artifactId>
 		</dependency>
@@ -94,5 +94,4 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-
 </project>
