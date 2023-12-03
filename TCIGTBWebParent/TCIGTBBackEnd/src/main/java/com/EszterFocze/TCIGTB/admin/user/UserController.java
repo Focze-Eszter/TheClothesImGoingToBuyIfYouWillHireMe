@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,6 +33,7 @@ public class UserController {
         user.setEnabled(true);
         model.addAttribute("user", user); //form -> db
         model.addAttribute("listRoles", listRoles); //need the roles info in the form for admin to check one; db -> form
+        model.addAttribute("pageTitle", "Create New User");
         return "user_form";
     }
 
@@ -42,4 +44,23 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", "The user have been saved successfully");
         return "redirect:/users";
     }
+
+    @GetMapping("/users/edit/{id}") //handler method for editing the user; {id} - placeholder for the id from the url
+    public String editUser(@PathVariable(name = "id") Integer id,
+                           Model model, //reference to the model
+                           RedirectAttributes redirectAttributes) { //map the value of {id] from the url; redirect attribute for sending the message
+        try { //try, catch from the original method in service
+            User user = service.get(id); //retrieve user obj by id
+            List<Role> listRoles = service.listRoles();
+            model.addAttribute("user", user); //user obj is found so we set it on the model, Send it to html
+            model.addAttribute("pageTitle", "Edit user " + "(ID: " + id + ")");
+            model.addAttribute("listRoles", listRoles); //need the roles info in the form; db -> form
+
+            return "user_form"; //return the logical name of the view user_form
+        } catch(UserNotFoundException ex) { // this exception will be shown in the form
+            redirectAttributes.addFlashAttribute("message", ex.getMessage()); //getMessage from the catch in the service: throw new UserNotFoundException("Could not find any user with ID " + id);
+            return "redirect:/users";
+        }
+    }
 }
+

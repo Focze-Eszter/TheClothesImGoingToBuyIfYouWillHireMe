@@ -17,7 +17,7 @@ public class UserRestController { //spring RESTful web controller
 
     @PostMapping("/users/check_email")
     public String checkDuplicateEmail(@Param("id") Integer id, @Param("email") String email) {
-        return service.isEmailUnique(email) ? "OK" : "Duplicated";
+        return service.isEmailUnique(id, email) ? "OK" : "Duplicated";
     }
 }
 

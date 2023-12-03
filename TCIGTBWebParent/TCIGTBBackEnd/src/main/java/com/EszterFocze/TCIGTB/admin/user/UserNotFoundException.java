@@ -1,2 +1,7 @@
-package com.EszterFocze.TCIGTB.admin.user;public class UserNotFoundException {
+package com.EszterFocze.TCIGTB.admin.user;
+
+public class UserNotFoundException extends Exception {
+    public UserNotFoundException(String message) {
+        super(message);
+    }
 }
