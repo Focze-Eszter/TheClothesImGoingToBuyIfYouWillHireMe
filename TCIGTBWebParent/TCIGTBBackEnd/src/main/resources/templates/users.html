@@ -4,6 +4,8 @@
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> <!--responsive on mobile-->
     <title>Home - TCIGTB Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/> <!--th to interpret and render url properly, relative to the app context-path-->
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -86,12 +88,20 @@
         <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
         <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
           <td>[[${user.id}]]</td>
-          <td></td>
+          <td><span class="fas fa-portrait fa-3x icon-silver"></span></td>
           <td>[[${user.email}]]</td>
           <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
           <td>[[${user.lastName}]]</td>
           <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
-          <td>Edit &nbsp; Delete</td>
+          <td>
+            <a th:if="${user.enabled == true}" href="#" class="fas fa-check-circle fa-2x icon-green"></a>
+            <a th:if="${user.enabled == false}" href="#" class="fas fa-check-circle fa-2x icon-dark"></a>
+          </td>
+          <td>
+            <a href="#" class="fas fa-edit fa-2x icon-green"></a>
+            &nbsp;
+            <a href="#" class="fas fa-trash fa-2x icon-dark"></a>
+          </td>
         </tr>
         </tbody>
       </table>
