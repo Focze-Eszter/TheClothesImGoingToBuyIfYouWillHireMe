@@ -35,7 +35,7 @@ public class UserRepositoryTests {
 
     @Test
     public void testCreateNewUserWithTwoRoles() {
-        User rioUser = new User("rio@yahoo.com", "08121990", "Riunosuke", "Berserk");
+        User rioUser = new User("rio@yahoo.com", "08121990", "Ryunosuke", "Berserk");
         Role roleEditor = new Role(3);
         Role roleAssistant = new Role(5);
         rioUser.addRole(roleEditor);
@@ -81,5 +81,12 @@ public class UserRepositoryTests {
     public void deleteUserById() {
         Integer userId = 1;
         repo.deleteById(userId);
+    }
+
+    @Test
+    public void testGetUserByEmail() {
+        String email = "rio@yahoo.com";
+        User user = repo.getUserByEmail(email);
+        assertThat(user).isNotNull();
     }
 }

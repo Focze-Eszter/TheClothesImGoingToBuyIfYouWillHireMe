@@ -90,8 +90,7 @@
           <td>[[${user.email}]]</td>
           <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
           <td>[[${user.lastName}]]</td>
-          <td>[[${user.roles}]]</td>
-          <td>[[${user.enabled}]]</td>
+          <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
           <td>Edit &nbsp; Delete</td>
         </tr>
         </tbody>

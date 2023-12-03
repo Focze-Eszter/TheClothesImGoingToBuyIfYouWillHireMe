@@ -4,6 +4,7 @@ package com.EszterFocze.TCIGTB.common.entity;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity //to indicate to jpa that we map this class to the table in the db
 @Table(name = "users")
@@ -108,6 +109,10 @@ public class User {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public String getFormattedRoles() {
+        return roles.stream().map(Role::getName).collect(Collectors.joining(", "));
     }
 
     @Override

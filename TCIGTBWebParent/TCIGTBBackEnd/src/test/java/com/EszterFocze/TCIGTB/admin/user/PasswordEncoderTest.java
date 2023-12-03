@@ -13,7 +13,7 @@ public class PasswordEncoderTest {
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
         System.out.println(encodedPassword);
-        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword);//verify the raw vs the resulted encoded password
+        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword); //verify the raw vs the resulted encoded password
         assertThat(matches).isTrue();
     }
 }

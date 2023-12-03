@@ -18,7 +18,7 @@ public class MainController {
 		final ModelAndView modelAndView = new ModelAndView("home");
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/home")
 	public ModelAndView displayHomePage(Model model) {
 		final ModelAndView modelAndView = new ModelAndView("home");

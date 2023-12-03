@@ -14,23 +14,24 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Autowired //annotation to let spring framework to inject an instance at runtime
+    @Autowired //annotation to let spring framework to inject an instance at runtime.
+    // @Autowired annotation tells Spring picks up an object managed in the application context, and injects it into the current object.
     private UserService service;
 
     @GetMapping("/users") //handler method to handle the request to see the user listing page
     public String listAll(Model model) {
         List<User> listUsers = service.listAll();
-        model.addAttribute("listUsers", listUsers); //the listUsers obj will be avaiable in the view
+        model.addAttribute("listUsers", listUsers); //the listUsers obj will be available in the view
         return "users"; //return the logical view name that spring will resolve into physical view file
     }
 
     @GetMapping("/users/new") //admin form
-    public String newUser(Model model) { //model - put the User obj into the form
+    public String newUser(Model model) { //model - put the User obj into the form  - the roles
         List<Role> listRoles = service.listRoles();
         User user = new User();
         user.setEnabled(true);
-        model.addAttribute("user", user);
-        model.addAttribute("listRoles", listRoles); //need the roles info in the form for admin to check one
+        model.addAttribute("user", user); //form -> db
+        model.addAttribute("listRoles", listRoles); //need the roles info in the form for admin to check one; db -> form
         return "user_form";
     }
 
