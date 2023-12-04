@@ -5,11 +5,17 @@ import com.EszterFocze.TCIGTB.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional /* Consider using @Transactional in Service classes to ensure data integrity.
+It can be use at class level or method level.
+You must use @Transactional in Service class if you execute an update query in repository class.
+ Note that all methods declared in repository classes are transactional by default.
+*/
 public class UserService {
 
     @Autowired //to let Spring to inject an instance at runtime
@@ -29,7 +35,7 @@ public class UserService {
         return (List<Role>) roleRepo.findAll();
     }
 
-    public void save(User user) {
+    public User save(User user) {
         //encodePassword(user); //before persisting the user into the db, we encode the password
         boolean isUpdatingUser = (user.getId() != null); //is in updating mode
         if (isUpdatingUser) { //updating mode; need to retrieve the user from the db to check the password
@@ -43,8 +49,12 @@ public class UserService {
         } else { //new mode
             encodePassword(user); //before persisting the user into the db, we encode the password
         }
-        userRepo.save(user);
+        return userRepo.save(user);
     } //the user is being edited with new password or not
+
+    public void updateUserEnabledStatus(Integer id, boolean enabled) {
+        userRepo.updateEnabledStatus(id, enabled);//delegate the call to the user Repo updateEnabledStatus() method
+    }
 
     private void encodePassword(User user) { //encode the user password
         String encodedPassword = passwordEncoder.encode(user.getPassword());

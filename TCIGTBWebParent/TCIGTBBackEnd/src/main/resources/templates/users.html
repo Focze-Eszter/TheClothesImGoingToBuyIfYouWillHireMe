@@ -93,8 +93,8 @@
             <td>[[${user.lastName}]]</td>
             <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
             <td>
-              <a th:if="${user.enabled == true}" href="#" class="fas fa-check-circle fa-2x icon-green"></a>
-              <a th:if="${user.enabled == false}" href="#" class="fas fa-check-circle fa-2x icon-dark"></a>
+              <a th:if="${user.enabled == true}" th:href="@{'/users/' + ${user.id} + '/enabled/false'}" class="fas fa-check-circle fa-2x icon-green" title="Disable this user"></a> <!--if it's enabled the link is to disable it-->
+              <a th:if="${user.enabled == false}" th:href="@{'/users/' + ${user.id} + '/enabled/true'}" class="fas fa-circle fa-2x icon-dark" title="Enable this user"></a>
             </td>
             <td>
               <a th:href="@{'/users/edit/' + ${user.id}}" class="fas fa-edit fa-2x icon-green" title="Edit this user"></a>

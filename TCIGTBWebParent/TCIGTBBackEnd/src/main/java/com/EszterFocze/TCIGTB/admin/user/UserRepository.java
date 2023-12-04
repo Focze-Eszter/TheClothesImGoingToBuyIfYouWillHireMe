@@ -1,6 +1,7 @@
 package com.EszterFocze.TCIGTB.admin.user;
 
 import com.EszterFocze.TCIGTB.common.entity.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +14,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     public Long countById(Integer id); //we use this because we don't want the .get() method that returns a full User object with all the details
     //just check the existence of an user
+
+    @Query("UPDATE User u SET u.enabled =?2 where u.id = ?1 ") //set the value to the second parameter of the method where u.id is set to the first parameter of the method
+    @Modifying //because it's an update method we need to use the modifying annotation
+    public void updateEnabledStatus(Integer id, boolean enabled);
 }
