@@ -11,105 +11,138 @@
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   </head>
   <body>
-  <div class="container-fluid">
-    <div>
-      <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <a class="navbar-brand" th:href="@{/}">
-          <img th:src="@{/images/logo_2.webp}" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-          <span class="navbar-toggler-icon"></span> <!--hamburger menu icon-->
-        </button>
-        <div class="collapse navbar-collapse" id="topNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/users}">Users</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/categories}">Categories</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/brands}">Brands</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/products}">Products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/customers}">Customers</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/orders}">Orders</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/shipping}">Shipping</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/report}">Sales Report</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/articles}">Articles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/menus}">Menus</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/settings}">Settings</a>
-            </li>
+    <div class="container-fluid">
+      <div>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+          <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/logo_2.webp}" />
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+            <span class="navbar-toggler-icon"></span> <!--hamburger menu icon-->
+          </button>
+          <div class="collapse navbar-collapse" id="topNavbar">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/users}">Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/categories}">Categories</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/brands}">Brands</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/products}">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/customers}">Customers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/orders}">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/shipping}">Shipping</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/report}">Sales Report</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/articles}">Articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/menus}">Menus</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/settings}">Settings</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
 
-          </ul>
+      <div>
+        <h2>Manage users</h2>
+        <a th:href="@{/users/new}">Create new user</a>
+      </div>
+
+      <div th:if="${message != null}" class="alert alert-success text-center"> <!--display only when the message variable is available, in the redirect view where the redirectAttribute is fired - the user is saved - alert-->
+        [[${message}]]
+      </div>
+
+      <div>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+          <thead class="thead-dark">
+          <tr>
+            <th>User ID</th>
+            <th>Photos</th>
+            <th>E-mail</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Roles</th>
+            <th>Enabled</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
+          <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
+            <td>[[${user.id}]]</td>
+            <td><span class="fas fa-portrait fa-3x icon-silver"></span></td>
+            <td>[[${user.email}]]</td>
+            <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
+            <td>[[${user.lastName}]]</td>
+            <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
+            <td>
+              <a th:if="${user.enabled == true}" href="#" class="fas fa-check-circle fa-2x icon-green"></a>
+              <a th:if="${user.enabled == false}" href="#" class="fas fa-check-circle fa-2x icon-dark"></a>
+            </td>
+            <td>
+              <a th:href="@{'/users/edit/' + ${user.id}}" class="fas fa-edit fa-2x icon-green" title="Edit this user"></a>
+              &nbsp;
+              <a th:href="@{'/users/delete/' + ${user.id}}" class="fas fa-trash fa-2x icon-dark link-delete" title="Delete this user"
+                 th:userId="${user.id}"></a> <!--special attribute to use in js-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal fade text-center" id="confirmModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Delete Confirmation</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <span id="confirmText"></span>
+            </div>
+
+            <div class="modal-footer">
+              <a href="" class="btn btn-success" id="yesButton">Yes</a>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            </div>
+          </div>
         </div>
-      </nav>
-    </div>
+      </div>
 
-    <div>
-      <h2>Manage users</h2>
-      <a th:href="@{/users/new}">Create new user</a>
+      <div class="text-center">
+        <p>TCIGTB Control Panel - Copyright &copy; TCIGTB</p>
+      </div>
     </div>
-
-    <div th:if="${message != null}" class="alert alert-success text-center"> <!--display only when the message variable is avaiable, in the redirect view where the redirectAttribute is fired - the user is saved - alert-->
-      [[${message}]]
-    </div>
-
-    <div>
-      <table class="table table-bordered table-striped table-hover table-responsive-xl">
-        <thead class="thead-dark">
-        <tr>
-          <th>User ID</th>
-          <th>Photos</th>
-          <th>E-mail</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Roles</th>
-          <th>Enabled</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
-        <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
-          <td>[[${user.id}]]</td>
-          <td><span class="fas fa-portrait fa-3x icon-silver"></span></td>
-          <td>[[${user.email}]]</td>
-          <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
-          <td>[[${user.lastName}]]</td>
-          <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
-          <td>
-            <a th:if="${user.enabled == true}" href="#" class="fas fa-check-circle fa-2x icon-green"></a>
-            <a th:if="${user.enabled == false}" href="#" class="fas fa-check-circle fa-2x icon-dark"></a>
-          </td>
-          <td>
-            <a th:href="@{'users/edit/' + ${user.id}}" class="fas fa-edit fa-2x icon-green" title="Edit this user"></a>
-            &nbsp;
-            <a href="#" class="fas fa-trash fa-2x icon-dark"></a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="text-center">
-      <p>TCIGTB Control Panel - Copyright &copy; TCIGTB</p>
-    </div>
-  </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".link-delete").on("click", function(e) { //event handler with the link-delete class
+          e.preventDefault(); //prevent the default behaviour of a link so we can execute our custom code
+          link = $(this);
+          userId = link.attr("userId");
+          $("#yesButton").attr("href", link.attr("href"))//we update the href attribute pointing to the href attribute of the link
+          $("#confirmText").text("Are you sure you want to delete this user ID: " + userId + "?");
+          $("#confirmModal").modal();
+        });
+      });
+    </script>
   </body>
 </html>

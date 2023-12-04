@@ -11,4 +11,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.email = :email") //to specify a custom jpa query; :email -> parameter email
     public User getUserByEmail(@Param("email") String email); //retrieve user obj by email
 
+    public Long countById(Integer id); //we use this because we don't want the .get() method that returns a full User object with all the details
+    //just check the existence of an user
 }

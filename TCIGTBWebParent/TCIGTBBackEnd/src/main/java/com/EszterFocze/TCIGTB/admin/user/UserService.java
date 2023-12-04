@@ -72,4 +72,12 @@ public class UserService {
             throw new UserNotFoundException("Could not find any user with ID " + id);
         }
     }
+
+    public void delete(Integer id) throws UserNotFoundException {
+        Long countById = userRepo.countById(id); //countById = findById
+        if (countById == null || countById == 0) { //no user exists in the db; countById because returns a long, findById would return a User obj
+            throw new UserNotFoundException("Could not find any user with ID " + id);
+        }
+        userRepo.deleteById(id);
+    }
 }
