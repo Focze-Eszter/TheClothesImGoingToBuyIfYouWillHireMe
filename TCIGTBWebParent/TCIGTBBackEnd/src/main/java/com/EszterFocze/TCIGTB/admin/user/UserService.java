@@ -3,6 +3,9 @@ package com.EszterFocze.TCIGTB.admin.user;
 import com.EszterFocze.TCIGTB.common.entity.Role;
 import com.EszterFocze.TCIGTB.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,8 @@ You must use @Transactional in Service class if you execute an update query in r
 */
 public class UserService {
 
+    public static final int USERS_PER_PAGE = 4;
+
     @Autowired //to let Spring to inject an instance at runtime
     private UserRepository userRepo; //reference to the UserRepository
 
@@ -29,6 +34,11 @@ public class UserService {
 
     public List<User> listAll() {
         return (List<User>) userRepo.findAll(); //repo.findAll() is an Iterable
+    }
+
+    public Page<User> listByPage(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE); // page num is 0 based, but in the method it starts from 1
+        return userRepo.findAll(pageable);
     }
 
     public List<Role> listRoles() { //method that will return a list of Role objects from the db

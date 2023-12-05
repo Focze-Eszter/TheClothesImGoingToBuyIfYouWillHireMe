@@ -3,12 +3,14 @@ package com.EszterFocze.TCIGTB.admin.user;
 import com.EszterFocze.TCIGTB.common.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends PagingAndSortingRepository<User, Integer> {
     //extending the crudRepository gives access to methods like save(), findAll(), findById()...
     //this method is used to verify the email uniqueness
+    //PagingAndSortingRepository -> Page<T> FindAll(Pageable pageable)
+
     @Query("SELECT u FROM User u WHERE u.email = :email") //to specify a custom jpa query; :email -> parameter email
     public User getUserByEmail(@Param("email") String email); //retrieve user obj by email
 
