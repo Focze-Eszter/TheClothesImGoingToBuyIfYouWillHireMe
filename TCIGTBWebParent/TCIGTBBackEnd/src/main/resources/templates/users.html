@@ -4,61 +4,33 @@
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> <!--responsive on mobile-->
     <title>Home - TCIGTB Admin</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+    <!-- Favicons starts here -->
+    <link rel="apple-touch-icon" sizes="57x57" href="../static/assets/icons/favicon_package/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../static/assets/icons/favicon_package/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../static/assets/icons/favicon_package/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/icons/favicon_package/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../static/assets/icons/favicon_package/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../static/assets/icons/favicon_package/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../static/assets/icons/favicon_package/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../static/assets/icons/favicon_package/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/assets/icons/favicon_package/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../static/assets/icons/favicon_package/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/assets/icons/favicon_package/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../static/assets/icons/favicon_package/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/assets/icons/favicon_package/favicon-16x16.png">
+    <link rel="manifest" href="../static/assets/icons/favicon_package/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicons ends here -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/icons/fontawesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/> <!--th to interpret and render url properly, relative to the app context-path-->
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   </head>
   <body>
-    <div class="container-fluid">
-      <div>
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-          <a class="navbar-brand" th:href="@{/}">
-            <img th:src="@{/images/logo_2.webp}" />
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-            <span class="navbar-toggler-icon"></span> <!--hamburger menu icon-->
-          </button>
-          <div class="collapse navbar-collapse" id="topNavbar">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">Users</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/categories}">Categories</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/brands}">Brands</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/products}">Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/customers}">Customers</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/orders}">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/shipping}">Shipping</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/report}">Sales Report</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/articles}">Articles</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/menus}">Menus</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}">Settings</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+      <header th:insert="header :: head"></header> <!-- header fragment -->
 
       <div>
         <h2>Manage users</h2>
@@ -130,10 +102,7 @@
           </div>
         </div>
       </div>
-
-      <div class="text-center">
-        <p>TCIGTB Control Panel - Copyright &copy; TCIGTB</p>
-      </div>
+      <div th:replace="footer :: footer"></div> <!-- footer fragment -->
     </div>
     <script type="text/javascript">
       $(document).ready(function() {
