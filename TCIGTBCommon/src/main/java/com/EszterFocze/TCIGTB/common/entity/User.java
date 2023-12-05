@@ -125,4 +125,10 @@ public class User {
                 ", roles=" + roles +
                 '}';
     }
+
+    @Transient //indicate that this getter is not mapped with any field in the db
+    public String getPhotosImagePath() {
+        if(id == null || photos == null) return "/images/default-user.png";
+        return "/user-photos/" + this.id + "/" + this.photos;
+    }
 }

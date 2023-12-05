@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  <!--users listing page-->
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
@@ -87,7 +87,10 @@
           <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
           <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
             <td>[[${user.id}]]</td>
-            <td><span class="fas fa-portrait fa-3x icon-silver"></span></td>
+            <td>
+              <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+              <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px; height: auto"/>
+            </td>
             <td>[[${user.email}]]</td>
             <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
             <td>[[${user.lastName}]]</td>

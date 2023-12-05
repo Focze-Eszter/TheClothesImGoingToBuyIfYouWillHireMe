@@ -1,15 +1,20 @@
 package com.EszterFocze.TCIGTB.admin.user;
 
+import com.EszterFocze.TCIGTB.admin.FileUploadUtil;
 import com.EszterFocze.TCIGTB.common.entity.Role;
 import com.EszterFocze.TCIGTB.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -38,9 +43,25 @@ public class UserController {
     }
 
     @PostMapping("users/save") //method triggered by the save button in the form => <form th:action="@{/users/save}" method="post"
-    public String saveUser(User user, RedirectAttributes redirectAttributes) { // reference redirectAttribute cuz after persisting the user obj into the db, we return a redirect view and we have an attribute avaiable in the redirected users view
-        System.out.println(user);
-        service.save(user);
+    public String saveUser(User user, RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile multipartFile) throws IOException, IOException { // reference redirectAttribute cuz after persisting the user obj into the db, we return a redirect view and we have an attribute available in the redirected users view
+        //the image attribute from the @RequestParam(image) is taken from <img name="image"/>
+        //MultipartFile interface - is used in conjunction with the Spring MVC framework to handle file uploads in a web application.
+        //When a user submits a form with a file input, the associated file is sent as part of the HTTP request. Provides methods to access the contents of the file, its metadata, and other information. This abstraction allows developers to handle file uploads easily in a Spring-based web application.
+        if(!multipartFile.isEmpty()) {//the form sent a file or not? The form has an upload file
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());//it is recommended to use the StringUtils class from Spring to to clean the path
+            //Path Normalization: Problem: Paths can be specified in different formats or may contain redundant elements (e.g., multiple slashes, dot segments like ./ or ../).
+            //Solution: cleanPath can normalize paths, resolving dot segments and removing any unnecessary elements to create a clean and standardized path representation.
+            user.setPhotos(fileName); //set the user field with the photo name
+            User savedUser = service.save(user);
+            //from the persisted User obj, use the id to create the folder, User ID directory to store photos
+            String uploadDir = "user-photos/" + savedUser.getId();
+            System.out.println(uploadDir + " - uploadDir");
+            FileUploadUtil.cleanDir(uploadDir); //delete old user photo
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } else { //the form hasn't any file upload
+            if(user.getPhotos().isEmpty()) user.setPhotos(null);
+            service.save(user);
+        }
         redirectAttributes.addFlashAttribute("message", "The user have been saved successfully");
         return "redirect:/users";
     }
