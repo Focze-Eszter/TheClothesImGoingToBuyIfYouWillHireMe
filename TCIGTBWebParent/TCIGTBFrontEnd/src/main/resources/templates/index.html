@@ -1,16 +1,21 @@
 <!DOCTYPE html> <!--FRONTEND-->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> <!--responisve on mobile-->
-	<title>frontend</title>
-		<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+	<title>Homepage || TCIGTB</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	</head>
 	<body>
-		<div class="container-fluid">
-			<div>
-				<h1>frontend</h1>
-			</div>
-		</div>
+	<div class="hero-carousel">
+		<!--<h1>Welcome to <span>The clothes I'm going buy if you will hire me</span></h1>-->
+		<img class="carousel-slide" th:src="@{/images/image1.jpeg}" />
+		<img class="carousel-slide" th:src="@{/images/image2.jpeg}" />
+		<img class="carousel-slide" th:src="@{/images/image3.jpeg}" />
+	</div>
+
+
+
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
 	</body>
 </html>
