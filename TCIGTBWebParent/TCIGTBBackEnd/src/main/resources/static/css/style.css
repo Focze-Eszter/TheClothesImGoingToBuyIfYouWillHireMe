@@ -1,15 +1,93 @@
-*.icon-white {
-    color: white;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap');
+
+:root {
+    --eerieBlack: #1A1110;
+    --greyLight: #CBE0DD;
+    --pureWhite:  #FFFFFF;
+    --baseWhite: #EBF6F7
 }
 
-*.icon-green {
+*, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.icon-white {
+    color: var(--pureWhite);
+}
+
+.icon-green {
     color: #5ad25a;
 }
 
-*.icon-silver {
+.icon-silver {
     color: silver;
 }
 
-*.icon-dark {
+.icon-dark {
     color: #808080FF;
+}
+
+/*pagination starts here*/
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    width: 70%;
+    margin: 3rem;
+    border-radius: 0.6rem;
+    background: var(--pureWhite);
+    box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+    list-style-type: none;
+}
+
+.page_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 2.6rem;
+    margin: 0.8rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    background: var(--pureWhite);
+    font-weight: 300;
+}
+
+.page_item:hover {
+    color: var(--eerieBlack);
+}
+
+.page_item.active {
+    color: var(--pureWhite);
+    background: var(--eerieBlack);
+    font-weight: 700;
+    border: 1px solid var(--eerieBlack);
+}
+
+.page_item.active .page_link {
+    background: var(--eerieBlack);
+    color: var(--pureWhite);
+}
+
+.page_item.active:hover .page_link {
+    transform: scale(1.2);
+}
+
+.page_link {
+    font-size: .8rem;
+    background: var(--pureWhite);
+}
+
+.page_item.disabled .page_link{
+    color: var(--greyLight);
 }

@@ -13,111 +13,117 @@
   <body>
       <header th:insert="header :: head"></header> <!-- header fragment -->
 
-      <div>
-        <h2>Manage users</h2>
-        <a th:href="@{/users/new}">Create new user</a>
-      </div>
+      <div class="content">
+        <div>
+          <h2>Manage users</h2>
+          <a th:href="@{/users/new}">Create new user</a>
+        </div>
 
-      <div th:if="${message != null}" class="alert alert-success text-center"> <!--display only when the message variable is available, in the redirect view where the redirectAttribute is fired - the user is saved - alert-->
-        [[${message}]]
-      </div>
+        <div th:if="${message != null}" class="alert alert-success text-center"> <!--display only when the message variable is available, in the redirect view where the redirectAttribute is fired - the user is saved - alert-->
+          [[${message}]]
+        </div>
 
-      <div>
-        <table class="table table-bordered table-striped table-hover table-responsive-xl">
-          <thead class="thead-dark">
-          <tr>
-            <th>User ID</th>
-            <th>Photos</th>
-            <th>E-mail</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Roles</th>
-            <th>Enabled</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
-          <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
-            <td>[[${user.id}]]</td>
-            <td>
-              <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
-              <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px; height: auto"/>
-            </td>
-            <td>[[${user.email}]]</td>
-            <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
-            <td>[[${user.lastName}]]</td>
-            <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
-            <td>
-              <a th:if="${user.enabled == true}" th:href="@{'/users/' + ${user.id} + '/enabled/false'}" class="fas fa-check-circle fa-2x icon-green" title="Disable this user"></a> <!--if it's enabled the link is to disable it-->
-              <a th:if="${user.enabled == false}" th:href="@{'/users/' + ${user.id} + '/enabled/true'}" class="fas fa-circle fa-2x icon-dark" title="Enable this user"></a>
-            </td>
-            <td>
-              <a th:href="@{'/users/edit/' + ${user.id}}" class="fas fa-edit fa-2x icon-green" title="Edit this user"></a>
-              &nbsp;
-              <a th:href="@{'/users/delete/' + ${user.id}}" class="fas fa-trash fa-2x icon-dark link-delete" title="Delete this user"
-                 th:userId="${user.id}"></a> <!--special attribute to use in js-->
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+        <div>
+          <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+              <th>User ID</th>
+              <th>Photos</th>
+              <th>E-mail</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Roles</th>
+              <th>Enabled</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
+            <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
+              <td>[[${user.id}]]</td>
+              <td>
+                <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+                <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px; height: auto"/>
+              </td>
+              <td>[[${user.email}]]</td>
+              <td>[[${user.firstName}]]</td> <!--firstName is the field name of the User Entity class-->
+              <td>[[${user.lastName}]]</td>
+              <td>[[${user.getFormattedRoles()}]]</td> <!--to format [editor, assistant] to editor, assistant-->td>[[${user.enabled}]]</td>
+              <td>
+                <a th:if="${user.enabled == true}" th:href="@{'/users/' + ${user.id} + '/enabled/false'}" class="fas fa-check-circle fa-2x icon-green" title="Disable this user"></a> <!--if it's enabled the link is to disable it-->
+                <a th:if="${user.enabled == false}" th:href="@{'/users/' + ${user.id} + '/enabled/true'}" class="fas fa-circle fa-2x icon-dark" title="Enable this user"></a>
+              </td>
+              <td>
+                <a th:href="@{'/users/edit/' + ${user.id}}" class="fas fa-edit fa-2x icon-green" title="Edit this user"></a>
+                &nbsp;
+                <a th:href="@{'/users/delete/' + ${user.id}}" class="fas fa-trash fa-2x icon-dark link-delete" title="Delete this user"
+                   th:userId="${user.id}"></a> <!--special attribute to use in js-->
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div class="text-center m-1" th:if="${totalElements} > 0">
-        <span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalElements}]] </span>
-      </div>
+        <div class="text-center m-1" th:if="${totalElements} > 0">
+          <span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalElements}]] </span>
+        </div>
 
-      <div class="text-center m-1" th:unless="${totalElements} > 0">
-        <span>No users found</span>
-      </div>
+        <div class="text-center m-1" th:unless="${totalElements} > 0">
+          <span>No users found</span>
+        </div>
 
-      <div> <!-- Pagination starts here-->
-        <nav>
-          <ul class="pagination justify-content-center">
-            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-              <a class="page-link" th:href="@{/users/page/1}" tabindex="-1">First</a>
-            </li>
-            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-              <a class="page-link" th:href="@{'/users/page/' + ${currentPage - 1}}" tabindex="-1">Previous</a>
-            </li>
+          <!-- Pagination starts here -->
 
-            <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
-                th:each="i : ${#numbers.sequence(1, totalPages)} ">
-              <a class="page-link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
-            </li>
+          <div class="pagination_block container">
+            <ul class="pagination">
+              <li th:class="${currentPage > 1 ? 'page_item' : 'page_item disabled'}">
+                <a class="page_link" th:href="@{/users/page/1}" tabindex="-1">First</a>
+              </li>
 
-            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-              <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
-            </li>
-            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-              <a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
-            </li>
-          </ul>
-        </nav>
-      </div> <!-- Pagination ends here-->
+              <li th:class="${currentPage > 1 ? 'page_item' : 'page_item disabled'}">
+                <a class="page_link" th:href="@{'/users/page/' + ${currentPage - 1}}" tabindex="-1">Previous</a>
+              </li>
 
-      <div class="modal fade text-center" id="confirmModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
+              <!-- experimental -->
+              <li th:class="${currentPage != i ? 'page_item' : 'page_item active'}"
+                  th:each="i : ${#numbers.sequence(1, totalPages)} ">
+                <a class="page_link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
+              </li>
 
-            <div class="modal-header">
-              <h4 class="modal-title">Delete Confirmation</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+              <li th:class="${currentPage < totalPages ? 'page_item' : 'page_item disabled'}">
+                <a class="page_link" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
+              </li>
 
-            <div class="modal-body">
-              <span id="confirmText"></span>
-            </div>
+              <li th:class="${currentPage < totalPages ? 'page_item' : 'page_item disabled'}">
+                <a class="page_link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+              </li>
+            </ul>
+          </div>
 
-            <div class="modal-footer">
-              <a href="" class="btn btn-success" id="yesButton">Yes</a>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <!-- Pagination ends here -->
+
+        <div class="modal fade text-center" id="confirmModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Confirmation</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <div class="modal-body">
+                <span id="confirmText"></span>
+              </div>
+
+              <div class="modal-footer">
+                <a href="" class="btn btn-success" id="yesButton">Yes</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+              </div>
             </div>
           </div>
         </div>
+        <div th:replace="footer :: footer"></div> <!-- footer fragment -->
       </div>
-      <div th:replace="footer :: footer"></div> <!-- footer fragment -->
-    </div>
     <script type="text/javascript">
       $(document).ready(function() {
         $(".link-delete").on("click", function(e) { //event handler with the link-delete class
