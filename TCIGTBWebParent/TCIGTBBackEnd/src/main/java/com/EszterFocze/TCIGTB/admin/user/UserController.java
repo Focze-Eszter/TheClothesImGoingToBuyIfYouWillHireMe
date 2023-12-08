@@ -30,12 +30,15 @@ public class UserController {
         /*List<User> listUsers = service.listAll();
         model.addAttribute("listUsers", listUsers); //the listUsers obj will be available in the view
         return "users"; //return the logical view name that spring will resolve into physical view file */
-        return listByPage(1, model);
+        return listByPage(1, model, "firstName", "asc"); //firstName = field in the entity class, not in the db; default setting
     }
 
     @GetMapping("/users/page/{pageNum}")
-    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model) { //have reference to Spring MVC model
-        Page<User> page = service.listByPage(pageNum);
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
+                             @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir) { //have reference to Spring MVC model
+        System.out.println("Sort field - " + sortField);
+        System.out.println("Sort order - " + sortDir);
+        Page<User> page = service.listByPage(pageNum, sortField, sortDir);
         List<User> listUsers = page.getContent();
 
         long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
@@ -44,14 +47,20 @@ public class UserController {
             endCount = page.getTotalElements();
         }
 
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("startCount", startCount);
         model.addAttribute("endCount", endCount);
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", reverseSortDir);
 
-        return "users";    }
+        return "users";
+       }
 
     @GetMapping("/users/new") //admin form
     public String newUser(Model model) { //model - put the User obj into the form  - the roles
@@ -129,4 +138,8 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/users";
     }
+
+    //@Param is used in queries of repository interfaces.
+    //@RequestParam annotation is optional if the data type is String or Integer. You can just declare parameters like this:
+    //public void handlerMethod(String sortField, String sortDir) { ... }
 }
