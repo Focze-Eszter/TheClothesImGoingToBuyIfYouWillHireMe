@@ -37,16 +37,17 @@ public class UserService {
         return (List<User>) userRepo.findAll(); //repo.findAll() is an Iterable
     }
 
-    public Page<User> listByPage(int pageNum, String sortField, String sortDir) {
+    public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort); // page num is 0 based, but in the method it starts from 1;
+        if (keyword != null) {
+            return userRepo.findAll(keyword, pageable);
+        }
         return userRepo.findAll(pageable);
     }
     /*pagination & sorting on the server side is the best practice as it performs fast: only a small amount of data (a page) is returned to the client (web browser).
     Whereas with pagination on client side, the web browser is loaded with huge amount of data, but showing only a few to users (a page) - thus it is not efficient.*/
-
-
 
     public List<Role> listRoles() { //method that will return a list of Role objects from the db
         return (List<Role>) roleRepo.findAll();

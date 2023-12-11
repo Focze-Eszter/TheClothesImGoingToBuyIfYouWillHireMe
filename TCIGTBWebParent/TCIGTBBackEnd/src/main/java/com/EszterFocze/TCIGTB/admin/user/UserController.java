@@ -30,15 +30,14 @@ public class UserController {
         /*List<User> listUsers = service.listAll();
         model.addAttribute("listUsers", listUsers); //the listUsers obj will be available in the view
         return "users"; //return the logical view name that spring will resolve into physical view file */
-        return listByPage(1, model, "firstName", "asc"); //firstName = field in the entity class, not in the db; default setting
+        return listByPage(1, model, "firstName", "asc", null); //firstName = field in the entity class, not in the db
     }
 
     @GetMapping("/users/page/{pageNum}")
-    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-                             @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir) { //have reference to Spring MVC model
-        System.out.println("Sort field - " + sortField);
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model, String sortField, String sortDir, String keyword) {
+        //have reference to Spring MVC model; @RequestParam requires the parameters to be present    System.out.println("Sort field - " + sortField);
         System.out.println("Sort order - " + sortDir);
-        Page<User> page = service.listByPage(pageNum, sortField, sortDir);
+        Page<User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
         List<User> listUsers = page.getContent();
 
         long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
@@ -58,6 +57,7 @@ public class UserController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("keyword", keyword); //send the keyword to the view
 
         return "users";
        }
