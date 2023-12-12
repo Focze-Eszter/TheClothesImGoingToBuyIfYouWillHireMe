@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!--namespace-->
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+
+  <!-- FROM this...
+  <th>
+  <a th:if="${sortField != 'id'}" class="text-white"
+     th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+      User ID
+  </a>
+  <a th:if="${sortField == 'id'}" class="text-white"
+     th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"> --> <!--toggle the sorting for this column-->
+  <!--User ID
+  </a>
+  <span th:if="${sortField == 'id'}"  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>--> <!--up or down icon-->
+  <!--</th> TO THIS -->
+  <th th:fragment="column_link(fieldName, columnLabel)"> <!--User ID-->
+    <a class="text-white"
+       th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"> <!--toggle the sorting for this column-->
+      [[${columnLabel}]]
+    </a>
+    <span th:if="${sortField == fieldName}"  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span> <!--up or down icon-->
+  </th>
+
+  <!-- from two almost identical anchors, to only one; set dynamically-->
+
+  <!--create a fragment for a tag and parameterize 2 variables-->
+  <a th:fragment="page_link(pageNum, label)"
+     class="page_link"
+     th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+  </body>
+</html>

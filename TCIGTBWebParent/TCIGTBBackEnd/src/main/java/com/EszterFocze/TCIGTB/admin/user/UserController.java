@@ -35,8 +35,7 @@ public class UserController {
 
     @GetMapping("/users/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model, String sortField, String sortDir, String keyword) {
-        //have reference to Spring MVC model; @RequestParam requires the parameters to be present    System.out.println("Sort field - " + sortField);
-        System.out.println("Sort order - " + sortDir);
+        //have reference to Spring MVC model; @RequestParam requires the parameters to be present
         Page<User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
         List<User> listUsers = page.getContent();
 
@@ -94,7 +93,12 @@ public class UserController {
             service.save(user);
         }
         redirectAttributes.addFlashAttribute("message", "The user have been saved successfully");
-        return "redirect:/users";
+        return getRedirectURLToTheAffectedUser(user);
+    }
+
+    private String getRedirectURLToTheAffectedUser(User user) {
+        String firstPartOFEmail = user.getEmail().split("@")[0];
+        return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOFEmail; //modification because when saved and returned to /user the modification isn't seen immediately; show only the affected user
     }
 
     @GetMapping("/users/edit/{id}") //handler method for editing the user; {id} - placeholder for the id from the url
