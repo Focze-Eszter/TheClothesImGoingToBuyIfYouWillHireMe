@@ -28,9 +28,11 @@ public class MvcConfig implements WebMvcConfigurer {
         String userPhotosPath = userPhotosDir.toFile().getAbsolutePath(); //File toFile() - Returns a File object representing this path. This method is equivalent to returning a File object
         // constructed with the String representation of this path.
         registry.addResourceHandler("/" + dirName + "/**") // "/**" to allow all the files under this directory to be available to the web clients
-                .addResourceLocations("file:" + userPhotosPath + "/"); //addResourceLocations() - to map this directory with the physical absolute path
+                .addResourceLocations("file:/" + userPhotosPath + "/"); //addResourceLocations() - to map this directory with the physical absolute path
 
         //for Windows OS due to different file scheme - .addResourceLocations("file:/" + userPhotosPath + "/")
+        //for MacOS due to different file scheme - .addResourceLocations("file:" + userPhotosPath + "/")
+
 
     }
 }
