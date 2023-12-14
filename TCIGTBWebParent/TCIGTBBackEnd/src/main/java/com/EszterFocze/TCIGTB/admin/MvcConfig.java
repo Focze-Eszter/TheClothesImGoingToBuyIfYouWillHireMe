@@ -19,7 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
           addResourceHandler("/static/**"): This defines the URL pattern that will be used to access the static resources.
           In this case, any URL starting with "/static/" will be handled by this resource handler.
           * we can tell Spring MVC to map a given URL (e.g. "/user-photos") to any directory
-          * (e.g. D:/ShopmeProject/ShopmeBackend/user-photos) and expose the resources (images, js, css...) in this directory
+          * (e.g. D:/Project/Backend/user-photos) and expose the resources (images, js, css...) in this directory
           * to the web clients (browsers) - that's the primary purpose of using resource handlers in Spring MVC.
          */
         //expose directory at the file system; to be accessible by the clients

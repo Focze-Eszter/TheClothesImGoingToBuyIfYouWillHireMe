@@ -56,8 +56,13 @@
             <!--we use the thymeleaf syntax th:each to iterate though each element in the collection listUsers-->
             <tr th:each="user : ${listUsers}"> <!--table row; listUsers of the Model; for each User obj in the listUsers collection we generate a new table row -->
               <td>
-                <a th:if="${user.enabled == true}" th:href="@{'/users/' + ${user.id} + '/enabled/false'}" class="fas fa-check-circle fa-2x icon-green" title="Disable this user"></a> <!--if it's enabled the link is to disable it-->
-                <a th:if="${user.enabled == false}" th:href="@{'/users/' + ${user.id} + '/enabled/true'}" class="fas fa-circle fa-2x icon-dark" title="Enable this user"></a>
+                <a th:if="${user.enabled == true}" th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Disable this user">
+                  <img class="icon" th:src="@{/assets/icons/enabled2.png}" width="30" height="auto">
+                </a> <!--if it's enabled the link is to disable it-->
+                <a th:if="${user.enabled == false}" th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Enable this user">
+                  <img class="icon" th:src="@{/assets/icons/disabled.png}" width="30" height="auto">
+
+                </a>
               </td>
               <td>[[${user.id}]]</td>
               <td>

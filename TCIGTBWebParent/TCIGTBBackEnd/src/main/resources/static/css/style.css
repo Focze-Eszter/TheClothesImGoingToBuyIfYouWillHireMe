@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap');
 
+@font-face {
+    font-family: roboto-light;
+    src: url('static/assets/fonts/Roboto/Roboto-Light.ttf');
+}
+
+@font-face {
+    font-family: roboto-medium;
+    src: url('static/assets/fonts/Roboto/Roboto-Medium.ttf');
+}
+
 :root {
     --eerieBlack: #1A1110;
     --greyLight: #CBE0DD;
@@ -17,22 +27,6 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
-
-.icon-white {
-    color: var(--pureWhite);
-}
-
-.icon-green {
-    color: #5ad25a;
-}
-
-.icon-silver {
-    color: silver;
-}
-
-.icon-dark {
-    color: #808080FF;
 }
 
 /*pagination starts here*/
