@@ -19,13 +19,24 @@
   <span th:if="${sortField == 'id'}"  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>--> <!--up or down icon-->
   <!--</th> TO THIS -->
   <th th:fragment="column_link(fieldName, columnLabel)"> <!--User ID-->
-    <a class="text-white"
+    <a class="sort_link"
        th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"> <!--toggle the sorting for this column-->
       [[${columnLabel}]]
     </a>
-    <span th:if="${sortField == fieldName}"  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span> <!--up or down icon-->
+    <span th:if="${sortField == fieldName}">
+      <img th:if="${sortDir == 'asc'}" th:src="@{/assets/icons/chevron_up.png}" width="10px" height="auto"/>
+      <img th:if="${sortDir == 'desc'}" th:src="@{/assets/icons/chevron_down.png}" width="10px" height="auto"/>
+    </span> <!--up or down icon-->
   </th>
 
+  <!--  <th th:fragment="column_link(fieldName, columnLabel)">
+  <a class="text-white"
+     th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+    [[${columnLabel}]]
+  </a>
+  <span th:if="${sortField == fieldName}"  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+  </th>
+  -->
   <!-- from two almost identical anchors, to only one; set dynamically-->
 
   <!--create a fragment for a tag and parameterize 2 variables-->

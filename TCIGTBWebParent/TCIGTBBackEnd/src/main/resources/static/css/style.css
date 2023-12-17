@@ -546,6 +546,14 @@ th:last-of-type {
 .page_item.disabled .page_link{
     color: var(--greyLight);
 }
+
+.sort_link {
+    color: var(--pureWhite);
+}
+
+.sort_link:hover {
+    color: skyblue;
+}
 /*pagination ends here*/
 
 footer {
