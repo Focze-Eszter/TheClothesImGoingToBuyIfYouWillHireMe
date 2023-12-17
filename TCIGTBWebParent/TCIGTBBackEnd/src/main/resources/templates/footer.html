@@ -5,14 +5,11 @@
     <head th:fragment="footer">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Footer</title>
-        <!--<link href="../static/css/footer.css" th:href="@{/css/footer.css}" rel="stylesheet" />-->
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/> <!--th to interpret and render url properly, relative to the app context-path-->
+        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
     </head>
     <body>
         <footer th:fragment="footer">
-            <div class="text-center">
                 <p>TCIGTB Control Panel - Copyright &copy; TCIGTB</p>
-            </div>
         </footer>
     </body>
 </html>

@@ -10,7 +10,7 @@
   </head>
   <body>
   <header th:insert="header :: head"></header> <!-- header fragment -->
-  <div class="container-fluid">
+  <div class="container-fluid m-auto" style="padding-top:50px">
 
     <div>
       <h2>Manage Users | [[${pageTitle}]]</h2> <!--dynamic title for new user or ; It's changed in the Controller through model.addAttribute-->
@@ -75,7 +75,7 @@
           <div class="col-sm-8">
             <input type="hidden" th:field="*{photos}"> <!--stores the file name of the photo-->
             <input type="file" id="fileImage" name="image" accept="image/png, image/jpg, image/jpeg, image/webp" class="mb-2"/>
-            <img id="thumbnail" alt="Photo preview" th:src="@{${user.photosImagePath}}" class="img-fluid"/>
+            <img id="thumbnail" alt="Photo preview" th:src="@{${user.photosImagePath}}" class="img-fluid" width="100" height="auto" style=border-radius:8px;/>
           </div>
         </div>
 

@@ -5,62 +5,76 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <!--<link href="style.css" th:href="@{/css/style.css}" rel="stylesheet" />-->
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/> <!--th to interpret and render url properly, relative to the app context-path-->
+        <link href="style.css" th:href="@{/css/style.css}" rel="stylesheet" />
     </head>
 
     <body class="home">
         <div th:fragment="head">
             <header>
-                <div class="container-fluid">
-                    <div>
-                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-                            <a class="navbar-brand" th:href="@{/}">
-                                <img th:src="@{/assets/images/logo_2.webp}" />
+                <nav>
+                    <ul class="nav_list">
+                        <li class="logo">
+                            <img th:src="@{/assets/icons/logo.png}" class="logo_img" width="45" height="45">
+                            <a href="/home"></a>
+                        </li>
+
+                        <li data-nav="home">
+                            <a href="#home" class="nav_item">
+                                <!--<img src="../static/assets/icons/home_mini.webp" width="18" height="18" alt="home page icon">Home-->
                             </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-                                <span class="navbar-toggler-icon"></span> <!--hamburger menu icon-->
-                            </button>
-                            <div class="collapse navbar-collapse" id="topNavbar">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/users}">Users</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/categories}">Categories</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/brands}">Brands</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/products}">Products</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/customers}">Customers</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/orders}">Orders</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/shipping}">Shipping</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/report}">Sales Report</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/articles}">Articles</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/menus}">Menus</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/settings}">Settings</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/users}">Users</a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/categories}">Categories</a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/brands}">Brands</a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/products}">Products</a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/customers}">Customers</a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/orders}">Orders</a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a class="nav-link" th:href="@{/shipping}">Shipping</a>
+                        </li>
+
+                        <li data-nav="darkmode_switcher" class="switcher">
+                            <input type="checkbox" id="darkmode_switcher">
+                            <label for="darkmode_switcher">
+                                <svg class="sun" fill="#000000" width="30px" height="30px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <g id="SVGRepo_iconCarrier"> <title>sun</title> <path d="M8.031 16.5c0 4.143 3.358 7.5 7.5 7.5s7.5-3.357 7.5-7.5-3.357-7.5-7.5-7.5c-4.142 0-7.5 3.357-7.5 7.5zM15.531 3.75l-2.109 4.219h4.219l-2.11-4.219zM24.543 7.457l-4.475 1.491 2.982 2.983 1.493-4.474zM10.994 8.948l-4.474-1.491 1.491 4.475 2.983-2.984zM6.969 14.359l-4.219 2.11 4.219 2.109v-4.219zM24.031 18.641l4.219-2.109-4.219-2.109v4.218zM15.531 29.25l2.109-4.219h-4.219l2.11 4.219zM20.068 24.052l4.475 1.491-1.492-4.475-2.983 2.984zM6.52 25.543l4.475-1.491-2.983-2.983-1.492 4.474z"/> </g>
+                                </svg>
+
+                                <svg class="moon" width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier"> <path d="M3 17C10.952 18.6176 16.6829 8.75775 11 3C16.0007 3.13144 20 7.11149 20 12C20 16.9715 16.1188 21 11 21C7.77111 21 4.65938 19.4319 3 17Z" stroke-linejoin="round"></path> </g>
+                                </svg>
+                            </label>
+                        </li>
+                        <div class="hamburger">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                    </ul>
+                </nav>
             </header>
         </div>
     </body>
