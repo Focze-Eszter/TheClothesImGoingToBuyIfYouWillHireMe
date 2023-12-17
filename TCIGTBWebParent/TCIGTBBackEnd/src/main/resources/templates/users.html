@@ -59,7 +59,7 @@
         </div>
 
         <div class="table_wrapper">
-          <table class="table">
+          <table class="table_element">
             <thead class="table_head">
             <tr>
               <th th:replace="fragments :: column_link('enabled', 'Enabled')"></th> <!--fragments.html :: name of the fragment-->
@@ -85,7 +85,7 @@
               </td>
               <td>[[${user.id}]]</td>
               <td style="text-align:center;">
-                <img th:if="${user.photos == null}" th:src="@{/assets/images/default_user.jpg}" style="width: 50px; height: auto; border-radius:8px;" />
+                <img th:if="${user.photos == null}" th:src="@{/assets/images/default_user.jpg}" style="width: 50px; height: 54px; border-radius:8px;" />
                 <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 50px; height: auto; border-radius:8px;"/>
               </td>
               <td>[[${user.email}]]</td>
@@ -187,6 +187,6 @@
           window.location = "[[@{/users/}]]";
         }
       </script>
-      <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+      <script type="application/javascript" th:src="@{/js/script.js}"></script>
   </body>
 </html>

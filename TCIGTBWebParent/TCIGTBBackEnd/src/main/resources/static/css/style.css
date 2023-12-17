@@ -291,7 +291,7 @@ h1 {
     font-family: 'roboto-light', sans-serif;
 }
 
-.table {
+.table_element {
     height: 50vh;
     width: 60vw;
     /*Light mode*/
@@ -481,7 +481,7 @@ th:last-of-type {
 }
 
 .dark {
-    color: white;
+    color: white!important;
     background: rgb(60, 60, 60);
 }
 

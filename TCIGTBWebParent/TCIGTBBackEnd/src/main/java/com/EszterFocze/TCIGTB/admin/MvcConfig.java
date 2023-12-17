@@ -31,8 +31,6 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:/" + userPhotosPath + "/"); //addResourceLocations() - to map this directory with the physical absolute path
 
         //for Windows OS due to different file scheme - .addResourceLocations("file:/" + userPhotosPath + "/")
-        //for MacOS due to different file scheme - .addResourceLocations("file:" + userPhotosPath + "/")
-
-
+        //for macOS due to different file scheme - .addResourceLocations("file:" + userPhotosPath + "/")
     }
 }
